@@ -53,6 +53,7 @@ def pdb(pdb_id, resource="pdb", identifier=None, save=False):
         "branched_entity_instance",
         "polymer_entity_instance",
         "nonpolymer_entity_instance",
+        "best"
     ]
     if resource not in resources:
         raise ValueError(
@@ -79,7 +80,7 @@ def pdb(pdb_id, resource="pdb", identifier=None, save=False):
     ]
     if resource in need_chain_id and identifier is None:
         raise ValueError("Please define chain ID (e.g. 'A') as 'identifier'.")
-
+    
     # Define URLs for HTTP request
     if resource != "pdb":
         # URLs to request resources other than PDB file

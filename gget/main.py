@@ -35,6 +35,8 @@ from .gget_setup import setup
 from .gget_pdb import pdb
 from .gget_gpt import gpt
 from .gget_cellxgene import cellxgene
+from .gget_chembl import chembl
+from .gget_uniprot import uniprot
 
 
 def main():
@@ -2196,3 +2198,73 @@ def main():
                         json.dump(pdb_results, f, ensure_ascii=False, indent=4)
                 else:
                     print(json.dumps(pdb_results, ensure_ascii=False, indent=4))
+
+## chembl return
+    if args.command == "chembl":
+        chembl_results = chembl(
+            chembl_id=args.chembl_id,
+            resource=args.resource,
+            identifier=args.identifier,
+        )
+
+        if chembl_results:
+            if args.resource == "chembl":
+                if args.out:
+                    # Create saving directory
+                    directory = "/".join(args.out.split("/")[:-1])
+                    if directory != "":
+                        os.makedirs(directory, exist_ok=True)
+
+                    # Save chembl file
+                    with open(args.out, "w") as f:
+                        f.write(chembl_results)
+                else:
+                    print(chembl_results)
+
+            else:
+                if args.out:
+                    # Create saving directory
+                    directory = "/".join(args.out.split("/")[:-1])
+                    if directory != "":
+                        os.makedirs(directory, exist_ok=True)
+
+                    # Save json
+                    with open(args.out, "w", encoding="utf-8") as f:
+                        json.dump(chembl_results, f, ensure_ascii=False, indent=4)
+                else:
+                    print(json.dumps(chembl_results, ensure_ascii=False, indent=4))
+
+## uniprot return
+    if args.command == "uniprot":
+        uniprot_results = uniprot(
+            uniprot_id=args.uniprot_id,
+            resource=args.resource,
+            identifier=args.identifier,
+        )
+
+        if uniprot_results:
+            if args.resource == "best_pdb":
+                if args.out:
+                    # Create saving directory
+                    directory = "/".join(args.out.split("/")[:-1])
+                    if directory != "":
+                        os.makedirs(directory, exist_ok=True)
+
+                    # Save uniprot file
+                    with open(args.out, "w") as f:
+                        f.write(uniprot_results)
+                else:
+                    print(uniprot_results)
+
+            else:
+                if args.out:
+                    # Create saving directory
+                    directory = "/".join(args.out.split("/")[:-1])
+                    if directory != "":
+                        os.makedirs(directory, exist_ok=True)
+
+                    # Save json
+                    with open(args.out, "w", encoding="utf-8") as f:
+                        json.dump(uniprot_results, f, ensure_ascii=False, indent=4)
+                else:
+                    print(json.dumps(uniprot_results, ensure_ascii=False, indent=4))
